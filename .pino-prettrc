@@ -1,0 +1,12 @@
+{  
+  "colorize": true,
+  "colorizeObjectKeys": true,
+  "colorizeObjects": true,
+  "levelFirst": true,
+  "customLevels": "info:30,work:35,evt:21,warn:40",
+  "customColors": "work:blue,emit:cyan,info:green,warn:yellow",
+  "useOnlyCustomLevels": false,
+  "timestampKey": "timestamp",
+  "ignore": "pid,hostname,name",
+  "singleLine": true
+}

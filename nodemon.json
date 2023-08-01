@@ -1,0 +1,12 @@
+{
+  "watch": [
+    "source/**/*.js"
+  ],
+  "ext": "js,jsx",
+  "ignore": [
+    "src/**/*.test.js",
+    "src/**/*.test.jsx"
+  ],
+  "exec": "NODE_OPTIONS=\"--experimental-vm-modules --experimental-import-meta-resolve --no-warnings\" node --loader=import-jsx ",
+  "execArgv": []
+}
