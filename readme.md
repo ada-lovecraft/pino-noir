@@ -5,7 +5,7 @@
 
 ## Demo
 
-<script async id="asciicast-Zp4Nj5SD52HFmDWTiTNOPiGmY" src="https://asciinema.org/a/Zp4Nj5SD52HFmDWTiTNOPiGmY.js"></script>
+[![asciicast](https://asciinema.org/a/Zp4Nj5SD52HFmDWTiTNOPiGmY.svg)](https://asciinema.org/a/Zp4Nj5SD52HFmDWTiTNOPiGmY)
 
 ## Install
 
