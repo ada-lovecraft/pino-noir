@@ -2,7 +2,7 @@ import {Subject} from 'rxjs';
 const subject = new Subject();
 
 const initialState = {
-	activeView: 'logs',
+	activeView: 'log-list',
 };
 let state = initialState;
 
@@ -14,7 +14,7 @@ const uiStore = {
 	subscribe: setState => {
 		subject.subscribe(setState);
 	},
-	setFocus: viewName => {
+	focus: viewName => {
 		state = {
 			activeView: viewName,
 		};

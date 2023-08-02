@@ -7,11 +7,6 @@ import {LogListContext} from './log-list-context.js';
 import {LogListItemContext} from './log-list-item-context.js';
 import {defaultMarker} from './constants.js';
 
-
-
-
-
-
 export function LogList({children}) {
 	const {depth} = useContext(LogListContext);
 	const {styles, config} = useComponentTheme('LogList');

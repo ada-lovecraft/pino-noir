@@ -56,12 +56,7 @@ const logStore = {
 			model: state.models[selectedIndex],
 			view: state.views[selectedIndex],
 		};
-
 		setState({...state, selected, selectedIndex});
-		console.info(
-			{id, selectedIndex: state.selectedIndex, selected: state.selected},
-			'store-select',
-		);
 	},
 	hover: id => {
 		const hoveredIndex = state.views.findIndex(v => v.id === id);
@@ -112,7 +107,7 @@ function prepareView(model) {
 
 const tail = new TailFile(process.env.LOG_FILE, {
 	startPos: 0,
-	pollFileIntervalMs: 100,
+	pollFileIntervalMs: 1000,
 });
 
 const parser = jsonlParser.parser();

@@ -1,11 +1,11 @@
 {
 	"name": "pino-noir",
-	"version": "0.0.0",
-	"license": "MIT",
+	"version": "0.0.1",
+	"license": "WTFPL",
 	"bin": "dist/cli.js",
 	"type": "module",
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"scripts": {
 		"build": "babel --out-dir=dist src",
@@ -14,7 +14,6 @@
 		"dev:ui": "NODE_OPTIONS=\"--experimental-vm-modules --experimental-import-meta-resolve\" node  dist/cli.js  --loader=import-jsx",
 		"dev:ui:watch": "NODE_OPTIONS=\"--experimental-vm-modules --experimental-import-meta-resolve\" nodemon  dist/cli.js  --watch dist --no-stdin -- --loader=import-jsx",
 		"scratchpad": "NODE_OPTIONS=\"--experimental-vm-modules --experimental-import-meta-resolve\" nodemon  dist/scratchpad.js  --watch dist --no-stdin -- --loader=import-jsx",
-		"generator": "nodemon tools/log-generator.js --watch tools",
 		"test": "prettier --check . && xo && ava"
 	},
 	"files": [

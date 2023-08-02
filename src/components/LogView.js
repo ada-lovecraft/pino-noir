@@ -1,105 +1,54 @@
-import React, {useState, useLayoutEffect} from 'react';
-import {useInput, Box, Text, Spacer} from 'ink';
+import React, {useEffect, useState} from 'react';
+import {Box} from 'ink';
 import List from './List.js';
+import DetailView from './DetailView.js';
+import logStore from '../stores/LogStore.js';
 import theme from '../stores/ThemeStore.js';
+
 import uiStore from '../stores/UIStore.js';
-import createLogger from '../logger.js';
+const LogView = ({width, height, ...props}) => {
+	const [uiState, setUIState] = useState(uiStore.initialState);
+	const activeHeight = ~~(height * 0.66);
+	const inactiveHeight = ~~(height * 0.33) + 1;
+	useEffect(() => {
+		logStore.init();
+		uiStore.init();
+		uiStore.subscribe(setUIState);
+	}, []);
 
-const console = createLogger('LogView');
-
-const LogView = ({width, height, logs, active}) => {
-	const [selectedLog, setSelectedLog] = useState(null);
-	const listHeight = height * 0.5;
-
-	useInput((input, key) => {
-		if (!active) {
-			return;
-		}
-		if (input === '/') {
-			uiStore.setFocus('filter');
-		}
-	});
+	function handleSelect(id) {
+		logStore.select(id);
+	}
+	function handleChange(id) {
+		logStore.select(id);
+	}
+	function handleSubmit(id) {
+		logStore.select(id);
+		uiStore.focus('log-detail');
+	}
+	function handleDetailBlur() {
+		uiStore.focus('log-list');
+	}
 
 	return (
-		<Box
-			className="log-panel"
-			flexDirection="column"
-			borderStyle="single"
-			height={height}
-			width={width}
-			borderColor={active ? theme.style('borderColor') : theme.style('dim')}
-		>
-			<Box height="100%" flexDirection="row">
-				<Box flexDirection="column" padding={1} height={listHeight}>
-					<List items={logs.models} height={height} onChange={setSelectedLog} />
-				</Box>
-
-				{/* <Box flexDirection="column" padding={1} height={listHeight}>
-					{selectedLog && (
-						<Box flexDirection="column">
-							<Box>
-								<Box marginRight={2}>
-									<Text>{selectedLog.key}</Text>
-								</Box>
-								<Box marginRight={1}>
-									<Text>{selectedLog.time.short}</Text>
-								</Box>
-								<Box marginRight={1}>
-									<Text>[{selectedLog.level.name.toUpperCase()}]</Text>
-								</Box>
-								<Box marginRight={1}>
-									<Text>{selectedLog.event}</Text>
-								</Box>
-							</Box>
-							<Box>
-								<Text>{JSON.stringify(selectedLog.data, null, 2)}</Text>
-							</Box>
-						</Box>
-					)}
-				</Box> */}
-
-				{/* {displayItems.map((item, idx) => (
-						<Box flexDirection="column">
-							<Box>
-								<Box marginRight={2}>
-									<Text
-										color={highlight(item)}
-										underline={shouldHighlight(item)}
-									>
-										{item.key}
-									</Text>
-								</Box>
-								<Box marginRight={1}>
-									<Text
-										color={theme.style('dim')}
-										underline={shouldHighlight(item)}
-									>
-										{item.time.short}
-									</Text>
-								</Box>
-								<Box marginRight={1}>
-									<Text
-										color={theme.style(item.level.style.color)}
-										underline={shouldHighlight(item)}
-									>
-										[{item.level.name.toUpperCase()}]
-									</Text>
-								</Box>
-								<Box marginRight={1}>
-									<Text
-										color={theme.style('text')}
-										underline={shouldHighlight(item)}
-									>
-										{item.event}
-									</Text>
-								</Box>
-							</Box>
-						</Box>
-					))} 
-					</Box> */}
-			</Box>
+		<Box flexDirection="column" width={width} height={height} {...props}>
+			<List
+				active={uiState.activeView === 'log-list'}
+				height={
+					uiState.activeView === 'log-list' ? activeHeight : inactiveHeight
+				}
+				onChange={handleChange}
+				onSubmit={handleSubmit}
+			/>
+			<DetailView
+				active={uiState.activeView === 'log-detail'}
+				onBlur={handleDetailBlur}
+				height={
+					uiState.activeView === 'log-detail' ? activeHeight : inactiveHeight
+				}
+				width={width}
+			/>
 		</Box>
 	);
 };
-
 export default LogView;

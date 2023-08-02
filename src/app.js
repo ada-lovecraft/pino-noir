@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, Box, useInput} from 'ink';
 import {ThemeProvider, defaultTheme, extendTheme} from '@inkjs/ui';
 import figures from 'figures';
-import DetailView from './components/DetailView.js';
+import LogView from './components/LogView.js';
 import useStdoutDimensions from './hooks/use-stdout-dimensions.js';
 import createLogger from './logger.js';
 
@@ -52,7 +52,7 @@ export default function App() {
 
 	return (
 		<ThemeProvider theme={customTheme}>
-			<DetailView height={7} width={dimensions.width} />
+			<LogView height={dimensions.height} width={dimensions.width} />
 		</ThemeProvider>
 	);
 }

@@ -21,7 +21,8 @@ const lineRange = (index, collectionLength, maxLines) => {
 	return [index - mid, index + mid];
 };
 
-const List = ({height, width, onChange = () => {}, onSubmit = () => {}}) => {
+const noop = () => {};
+const List = ({height, width, active, onChange = noop, onSubmit = noop}) => {
 	const [logState, setLogState] = useState(logStore.initialState);
 	const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -34,9 +35,11 @@ const List = ({height, width, onChange = () => {}, onSubmit = () => {}}) => {
 	const updateSelectedIndex = index => {
 		setSelectedIndex(index);
 		const log = logs[index];
-		onChange({id: log.id, view: logs[index], model: logState.models[index]});
+		onChange(index);
 	};
 	useInput((input, key) => {
+		if (!active) return;
+
 		if (input === 'k') {
 			updateSelectedIndex(Math.max(0, selectedIndex - 1));
 		}
@@ -56,13 +59,13 @@ const List = ({height, width, onChange = () => {}, onSubmit = () => {}}) => {
 		if (input === 's') {
 			updateSelectedIndex(Math.min(logs.length - 1, selectedIndex + pageSize));
 		}
-		if (input === 'q') {
-			process.exit(0);
+		if (key.return || input === '\r') {
+			console.log({input, key}, 'list-submit');
+			onSubmit(selectedIndex);
 		}
 	});
 	useLayoutEffect(() => {
 		logStore.subscribe(setLogState);
-		logStore.init();
 	}, []);
 
 	return (
@@ -94,7 +97,7 @@ const List = ({height, width, onChange = () => {}, onSubmit = () => {}}) => {
 							<Cell width={7} textAlign="right">
 								<Text
 									color={theme.style(data.level.style.color)}
-									inverse={data.level.name === 'FATAL'}
+									bold={data.level.name === 'FATAL'}
 								>
 									[{data.level.name}]
 								</Text>
