@@ -25,8 +25,7 @@ $ pino-noir --help
     --file  path to pino log file
 
   Examples
-    $ pino-noir --name=Jane
-    Hello, Jane
+    $ pino-noir --file=$HOME/.logs/some.log
     $ cat some.log | pino-noir
 ```
 
