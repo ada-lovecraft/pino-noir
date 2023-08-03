@@ -47,7 +47,7 @@ Uses vim keybindings for navigation
 - [x] Log Details view
 - [ ] search with `/`
 - [ ] filter with `{` using json path `{$.level >= 50}`
-- [ ] group logs with `[` using json path to allow for easy workflow tracking `[$.task.id]` which would group all logs with a `{..., task:{id, ...} ... }`.
+- [ ] group logs with `[` using json path to allow for easy workflow tracking `[$.task.id]` which would group all logs with a matching value at: `{..., task:{id, ...} ... }`.
 - [ ] Global settings with `$HOME/.config/.noirrc`
 - [ ] Project settings with `$CWD/.noirrc` merged with global
 - [ ] Themeing with Base16
